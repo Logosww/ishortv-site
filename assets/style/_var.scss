@@ -1,0 +1,21 @@
+$font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","\5fae\8f6f\96c5\9ed1",Arial,sans-serif;
+$color-primary: #03A9F4;
+$color-text: #111;
+$color-border: #dcdfe6;
+$color-border-dark: #686666;
+
+$responsive-breakpoint-max: 2200px !default;
+$responsive-breakpoint-xxxxl: 1920px !default;
+$responsive-breakpoint-xxxl: 1680px !default;
+$responsive-breakpoint-xxl: 1440px !default;
+$responsive-breakpoint-xl: 1280px !default;
+$responsive-breakpoint-lg: 960px !default;
+$responsive-breakpoint-md: 768px !default;
+$responsive-breakpoint-sm: 480px !default;
+$width-scrollbar: 6px !default;
+
+:root {
+  --width-logo: 200px;
+  --content-body-horizontal-padding: 66px;
+  --extra-horizontal-padding: 0px;
+}

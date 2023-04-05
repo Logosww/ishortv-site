@@ -1,0 +1,15 @@
+.sv-content-header {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 900;
+  padding: 0;
+  margin: 2.5rem 0 1.5rem 0;
+  color: #fff;
+  user-select: none;
+}
+
+.sv-content-body {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-item-num), 1fr);
+  gap: var(--grid-gap);
+}

@@ -1,0 +1,108 @@
+@use '_var' as *;
+@use '_mixin' as *;
+
+.sv-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(35, 35, 36);
+  overflow-y: scroll;
+  padding: 0;
+
+  .sv-section-main {
+    position: relative;
+    width: 100%;
+
+    &.admin {
+      margin-top: 112px;
+      padding: 0 7vw;
+    }
+
+    .sv-section-content {
+      padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding));
+      padding-right: 66px;
+    }
+  }
+}
+
+@include respond-to('sm') {
+  .sv-content-body {
+    --grid-item-num: 2;
+    --grid-gap: 20px;
+  }
+
+}
+
+@include respond-to('lg') {
+
+  .sv-content-body {
+    --grid-item-num: 3;
+  }
+}
+
+@include respond-to('xl') {
+
+  .sv-navbar-container {
+    .sv-search-box.center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@include respond-to('xxl') {
+
+}
+
+@include respond-to('xxxl') {
+
+  .sv-navbar-container {
+    .sv-search-box.center {
+      width: 500px;
+    }
+  }
+
+  .sv-navbar-container.admin {
+    .sv-search-box {
+      width: 400px;
+    }
+  }
+
+  .sv-content-body {
+    --grid-item-num: 4;
+  }
+}
+
+@include respond-to('xxxxl') {
+
+  .sv-navbar-container.admin {
+    .sv-search-box {
+      width: 500px;
+    }
+  }
+
+  .sv-content-body {
+    --grid-item-num: 4;
+    --grid-gap: 30px;
+  }
+}
+
+@include respond-to('max') {
+  :root {
+    --content-body-horizontal-padding: 0px;
+  }
+
+  .sv-category-carousel {
+    padding: 0 20px 0 50px;
+
+    .sv-carousel-thumbnails {
+      padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding) - 50px);
+    }
+  }
+
+  .sv-content-body {
+    --grid-item-num: 5;
+  }
+}
+

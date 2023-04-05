@@ -1,0 +1,30 @@
+.sv-sidebar-categories {
+  position: fixed;
+  top: 112px;
+  width: calc(var(--width-sidebar) + 70px);
+  padding-left: 70px;
+  z-index: 4;
+
+  .sv-sidebar-category {
+    cursor: pointer;
+    user-select: none;
+    display: block;
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 20px 10px;
+    padding-top: 0;
+    color: #afadad;
+    transition: all .3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      color: #fff;
+    }
+
+    &.active {
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+    }
+  }
+}

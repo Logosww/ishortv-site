@@ -1,0 +1,97 @@
+@use '_var' as *;
+
+.sv-input {
+  outline: none;
+  font-size: 14px;
+  position: relative;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 0 0 1px $color-border;
+  transition: box-shadow .3s ease;
+  background-color: #fff;
+
+  &:hover {
+    box-shadow: 0 0 0 1px $color-primary;
+  }
+
+  &:active, &:focus {
+    box-shadow: 0 0 0 2px $color-primary;
+  }
+}
+
+.row {
+  display: inline-flex;
+  width: 100%;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sv-checkbox {
+  color: $color-text;
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+
+  > input[type=checkbox] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border: 1px solid $color-border-dark;
+    border-radius: 4px;
+    inset-inline-start: 0;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    direction: ltr;
+    position: relative;
+    cursor: pointer;
+    transition: all .3s ease;
+
+    &:hover {
+      border-color: $color-primary;
+    }
+
+    &:checked {
+      border-color: $color-primary;
+      background-color: $color-primary;
+      
+      &::after {
+        position: absolute;
+        top: 50%;
+        inset-inline-start: 21.5%;
+        display: table;
+        width: 5.7142857142857135px;
+        height: 9.142857142857142px;
+        border: 2px solid #fff;
+        border-top: 0;
+        border-inline-start: 0;
+        transform: rotate(45deg) scale(.95) translate(-57%,-50%);
+        content: '';
+      }
+    }
+  }
+
+  > span {
+    padding-inline-start: 6px;
+    padding-inline-end: 6px;
+    display: inline-block;
+    cursor: pointer;
+  }
+}
+
+.sv-link {
+  font-size: 14px;
+  color: $color-text;
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #000;
+  transition: all .2s;
+
+  &:hover {
+    color: $color-primary;
+    border-color: $color-primary;
+  }
+}

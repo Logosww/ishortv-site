@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@mdi/js": "^7.2.96",
+    "@nuxtus/nuxt-localtunnel": "^1.0.1",
+    "@types/get-image-colors": "^4.0.2",
+    "@types/mockjs": "^1.0.7",
+    "@types/node": "^18.15.11",
+    "@vueuse/core": "^9.13.0",
+    "@vueuse/nuxt": "^9.13.0",
+    "lodash-es": "^4.17.21",
+    "lodash-unified": "^1.0.3",
+    "mockjs": "^1.1.0",
+    "nuxt": "^3.3.2",
+    "sass": "^1.60.0",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue-gtag-next": "^1.14.0"
+  },
+  "dependencies": {
+    "@types/video.js": "^7.3.51",
+    "cos-js-sdk-v5": "^1.4.16",
+    "nanoid": "^4.0.2",
+    "normalize.css": "^8.0.1",
+    "pretty-bytes": "^6.1.0",
+    "video.js": "^8.0.4",
+    "vuetify": "^3.1.12"
+  }
+}

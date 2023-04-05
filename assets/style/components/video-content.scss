@@ -1,0 +1,36 @@
+// $slider-vertical-min-height: unset;
+
+.sv-video-wrapper {
+  position: relative;
+
+  .sv-video-container {
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+
+  &.is-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .6);
+    backdrop-filter: blur(2px);
+
+    .sv-video-container {
+      position: absolute;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 
+      rgb(255 255 255 / 8%) 0px 6px 16px 0px, 
+      rgb(255 255 255 / 12%) 0px 3px 6px -4px, 
+      rgb(255 255 255 / 5%) 0px 9px 28px 8px;
+      width: 1280px;
+      height: 720px;
+    }
+  }
+}

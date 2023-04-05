@@ -1,0 +1,23 @@
+@use '../var' as *;
+
+.sv-navbar-avatar {
+  display: inline-block;
+  margin-left: 2vw;
+}
+
+.sv-avatar-login {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .sv-avatar-title {
+    color: #fff;
+    font-size: 16px;
+  }
+}

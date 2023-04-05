@@ -1,0 +1,49 @@
+.sv-search-box {
+  position: relative;
+  display: inline-block;
+  background-color: #f1f2f3;
+  opacity: .8;
+  border-radius: 10px;
+  border: 1px solid #E3E5E7;
+  padding: 4px 48px 4px 5px;
+  height: 42px;
+  min-width: 200px;
+  transition: opacity .3s;
+
+  &.center {
+    width: 300px;
+  }
+
+  .sv-search-box__input {
+    outline: none;
+    border: none;
+    font-size: 14px;
+    padding: 0 8px;
+    height: 32px;
+    width: 100%;
+    border-radius: 10px;
+    transition: background-color .3s;
+
+    &:focus, &:active {
+      background-color: #dadde0;
+
+      .sv-search-box {
+        opacity: .9;
+      }
+    }
+  }
+
+  .sv-search-box__btn {
+    position: absolute;
+    right: 8px;
+    padding: 0;
+
+    &:hover {
+      background-color: #dadde0;
+    }
+  }
+
+  &:hover {
+    opacity: .9;
+  }
+}

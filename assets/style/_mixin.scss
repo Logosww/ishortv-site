@@ -1,0 +1,21 @@
+@use 'sass:map';
+@use '_var' as *;
+
+$responsive-breakpoints: (
+  'sm': #{$responsive-breakpoint-sm},
+  'md': #{$responsive-breakpoint-md},
+  'lg': #{$responsive-breakpoint-lg},
+  'xl': #{$responsive-breakpoint-xl},
+  'xxl': #{$responsive-breakpoint-xxl},
+  'xxxl': #{$responsive-breakpoint-xxxl},
+  'xxxxl': #{$responsive-breakpoint-xxxxl},
+  'max': #{$responsive-breakpoint-max},
+) !default;
+
+@mixin respond-to($responsive-breakpoint) {
+  @if #{map.has-key($responsive-breakpoints, $responsive-breakpoints)} {
+    @media screen and (min-width: #{map.get($responsive-breakpoints, $responsive-breakpoint)}) {
+      @content
+    }
+  }
+}

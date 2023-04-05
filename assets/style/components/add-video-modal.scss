@@ -1,0 +1,194 @@
+@use '../_var' as *;
+
+.sv-modal-add-video {
+  padding: 20px 30px;
+  // width: 800px;
+  margin: 0 auto;
+  background-color: #595858;
+  border-radius: 16px;
+  box-shadow: 
+  rgb(0 0 0 / 8%) 0px 6px 16px 0px, 
+  rgb(0 0 0 / 12%) 0px 3px 6px -4px, 
+  rgb(0 0 0 / 5%) 0px 9px 28px 8px;
+
+  .sv-modal-add-video-row {
+    margin: 15px 0 20px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .sv-modal-add-video__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .sv-modal-add-video__title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      user-select: none;
+    }
+
+    .sv-modal-add-video__action {
+      .v-icon {
+        font-size: 22px;
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+
+  input[type=file] {
+    display: none;
+  }
+
+  .sv-modal-add-video__upload {
+    border-radius: 8px;
+    width: 550px;
+    height: 180px;
+    padding: 40px 0;
+    border: 1px #ccc dashed;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color .3s ease;
+    font-size: 16px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    &:hover {
+      border-color: #fff;
+    }
+
+    &.active {
+      border-color: #fff;
+    }
+  }
+
+  .sv-modal-add-video__content {
+    width: 100%;
+    padding: 0 20px;
+
+    .sv-modal-add-video__upload-progress {
+      margin-bottom: 10px;
+
+      .sv-modal-add-video__upload-progress__detail {
+        display: block;
+        color: #eee;
+        font-size: 14px;
+        line-height: 2em;
+        height: 2em;
+        user-select: none;
+      }
+    }
+
+    .sv-modal-add-video__content-left {
+      display: inline-block;
+      width: 250px;
+
+      .sv-modal-add-video__video,
+      .sv-modal-add-video__cover {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .sv-modal-add-video__video {
+        position: relative;
+
+        .sv-modal-add-video__video-mask {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          cursor: pointer;
+
+          .sv-modal-add-video__video-mask__overlay {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            backdrop-filter: blur(2px);
+            background-color: #0000004d;
+            transition: opacity .3s ease-out;
+
+            &:hover {
+              opacity: 1;
+            }
+
+            .v-icon {
+              position: absolute;
+              color: #fff;
+              font-size: 54px;
+              width: 54px;
+              height: 54px;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+
+          .sv-modal-add-video__video-mask__length {
+            position: absolute;
+            bottom: 7px;
+            right: 7px;
+            font-size: 12px;
+            height: 18px;
+            line-height: 14px;
+            background-color: #00000099;
+            color: #fff;
+            padding: 2px 4px;
+            border-radius: 4px;
+            user-select: none;
+          }
+        }
+      }
+    }
+
+    .sv-modal-add-video__content-right {
+      display: inline-block;
+      vertical-align: top;
+      width: 400px;
+      padding-left: 30px;
+
+      .v-input__control {
+        background-color: #fff;
+        border-radius: 8px;
+      }
+
+      .form-item {
+        position: relative;
+        width: 100%;
+        padding: 15px;
+        padding-left: 16px;
+        font-size: 16px;
+        color: #919191;
+        user-select: none;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+        min-height: 118.25px;
+
+        .tag-input-btn {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+        }
+
+        .tag-input {
+          height: 56px;
+        }
+
+        .tags {
+          .v-chip {
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@use '../_var' as *;
+
+.sv-video-card {
+  position: relative;
+  cursor: pointer;
+
+  .sv-video-card__cover {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+
+    .v-img {
+      width: 100%;
+      transition: transform .4s ease;
+    }
+  }
+
+  .sv-video-card__title {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    transition: color .3s ease;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  &:hover {
+    .v-img {
+      transform: scale(1.11);
+    }
+
+    .sv-video-card__title {
+      color: $color-primary;
+    }
+  }
+}
