@@ -2,7 +2,7 @@
   <div class="login-box-wrapper">
     <div class="login-box-container">
       <div class="login-box-content">
-        <img class="login-box-content__logo" :src="`${CDN_URL}/logo.png`" @click="navigateTo('/')">
+        <img class="login-box-content__logo" :src="`${CDN_URL}/logo@2x.png`" @click="navigateTo('/')">
         <form class="login-box-content__form">
           <input class="sv-input row" type="text" name="username" v-model="form.username" placeholder="请输入用户名">
           <input 

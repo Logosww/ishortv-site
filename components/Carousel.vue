@@ -87,6 +87,11 @@ const handleThumbMouseLeave = () => {
   startTimer();
 };
 
+watch(
+  () => videoFecthParams.value,
+  () => currentCarouselIndex.value = 0
+);
+
 </script>
 
 <style lang="scss">
