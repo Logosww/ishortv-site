@@ -7,10 +7,17 @@
   </div>
 </template>
 <script setup>
+import { CDN_URL } from '@/constants';
 import 'normalize.css';
 
 useHead({
   titleTemplate: (titleChunck) => titleChunck ? `${titleChunck} | iShortV` : 'iShortV',
+  link: [
+    {
+      rel: 'icon',
+      href: `${CDN_URL}/logo@favicon.png`
+    }
+  ],
   meta: [{
     
   }]
