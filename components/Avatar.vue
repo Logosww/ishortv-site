@@ -30,7 +30,7 @@
             >
               {{ userInfo?.nickname.at(0) }}
             </v-avatar>
-            <h3 style="margin-top: 5px">Logos</h3>
+            <h3 style="margin-top: 5px">{{ userInfo?.nickname }}</h3>
             <p class="text-caption mt-1">
               {{ userInfo?.email }}
             </p>

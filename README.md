@@ -1,4 +1,4 @@
-# IShortv 短视频网站
+# iShortV 短视频网站
 
 ## 简介
 
