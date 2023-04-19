@@ -377,7 +377,7 @@ const handleAddVideo = async () => {
     message({ type: 'success', message: '添加视频成功' });
     handleClose();
   }
-}
+};
 
 </script>
 

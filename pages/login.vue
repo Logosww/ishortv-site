@@ -57,6 +57,7 @@ const handleLogin = async () => {
   const auth = useAuth();
   auth.value.isAuthenticated = true;
   auth.value.isAuthorized = form.isAdmin;
+  useCookie('is_admin').value = `${form.isAdmin}`;
 
   message({
     type: 'success',
