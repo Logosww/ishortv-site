@@ -7,13 +7,16 @@ export default defineNuxtConfig({
       viewport: '',
     }
   },
+
   css: [
     'vuetify/styles'
   ],
+
   plugins: [
     '@/plugins/directives/index.ts',
     '@/plugins/my-message/index.ts'
   ],
+
   vite: {
     // server: {
     //   proxy: {
@@ -36,6 +39,7 @@ export default defineNuxtConfig({
       noExternal: ['vuetify']
     }
   },
+
   modules: [
     '@vueuse/nuxt',
     '@nuxtus/nuxt-localtunnel',
@@ -45,7 +49,10 @@ export default defineNuxtConfig({
       })
     }
   ],
+
   typescript: {
     shim: false
-  }
+  },
+
+  devtools: true
 })

@@ -158,6 +158,7 @@ import {
 import { base64ToFile } from '@/utils/file';
 import prettyBytes from 'pretty-bytes';
 import PlayVideoModal from './PlayVideoModal.vue';
+import { uploadCategories as categories } from '@/constants';
 
 import type { VTextField } from 'vuetify/components';
 import type { CategoryType, CollectionType } from '@/composables/use-api-types';
@@ -183,6 +184,16 @@ const form = reactive<FormData>({
   videoKey: '',
   coverKey: ''
 });
+const collections: Option[] = [
+  {
+    title: '成品类',
+    value: 'product'
+  },
+  {
+    title: '素材类',
+    value: 'material'
+  }
+];
 
 const props = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits(['update:modelValue']);
@@ -201,38 +212,6 @@ const SUPPORTED_FILE_TYPE = [
   'rmvb',
   'mkv',
   'm4v'
-];
-const categories: Option[] = [
-  {
-    title: '风景',
-    value: 'view'
-  },
-  {
-    title: '搞笑',
-    value: 'funny'
-  },
-  {
-    title: '体育',
-    value: 'sports'
-  },
-  {
-    title: '少儿',
-    value: 'children'
-  },
-  {
-    title: '其他',
-    value: 'other'
-  },
-];
-const collections: Option[] = [
-  {
-    title: '短视频成品',
-    value: 'product'
-  },
-  {
-    title: '短视频素材',
-    value: 'material'
-  }
 ];
 
 const coverBase64 = ref('');

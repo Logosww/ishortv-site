@@ -63,3 +63,26 @@ export const adminCategories = [
     href: '/category/other'
   },
 ];
+
+export const uploadCategories = [
+  {
+    title: '风景',
+    value: 'landscape'
+  },
+  {
+    title: '搞笑',
+    value: 'funny'
+  },
+  {
+    title: '体育',
+    value: 'sport'
+  },
+  {
+    title: '少儿',
+    value: 'children'
+  },
+  {
+    title: '其他',
+    value: 'other'
+  }
+];
