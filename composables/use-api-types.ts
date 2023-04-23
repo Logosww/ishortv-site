@@ -14,7 +14,7 @@ export interface RegisterInfo extends UserInfo {
 export interface VideoInfo {
   title: string;
   coverUrl: string;
-  key: string;
+  videoKey: string;
 };
 export interface PagingVideoInfo {
   currentPage: number;

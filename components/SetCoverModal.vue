@@ -46,6 +46,7 @@
             </template>
           </v-img>
           <v-file-input
+            v-model="customCoverFile"
             label="请选择图片"
             accept="image/*"
             variant="underlined"
@@ -75,7 +76,6 @@
 import { mdiClose, mdiCheckBold, mdiImage, mdiCamera } from '@mdi/js';
 import VideoContent from './VideoContent.vue';
 
-
 const props = defineProps<{ 
   modelValue: boolean;
   src: string;
@@ -84,14 +84,18 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
   (event: 'update:modelValue', visibility: boolean): void;
-  (event: 'cover-selected', coverSrc: string): void;
+  (
+    event: 'cover-selected', 
+    cover: string | { url: string; file: File }
+  ): void;
 }>();
 
 const tab = ref('capture');
 const currentTime = ref(0);
 const resolvedTime = ref(0);
 const coverSrc = ref('');
-const customCover = ref('');
+const customCover = ref();
+const customCoverFile = ref<File[]>([]);
 const VideoContentRef = ref<InstanceType<typeof VideoContent>>();
 const options = reactive({
   fluid: true,
@@ -124,18 +128,27 @@ const handleCapture = () => {
     coverSrc.value = captureVideoCover();
     resolvedTime.value = currentTime.value = 0;
   }
-  else {
-    coverSrc.value = customCover.value;
-    URL.revokeObjectURL(customCover.value);
-    customCover.value = '';
-  }
   emitCoverSrc();
 };
 
 const emitCoverSrc = () => {
-  emit('cover-selected', coverSrc.value);
+  const cover =
+    tab.value === 'capture'
+    ? coverSrc.value
+    : { url: customCover.value, file: customCoverFile.value[0] }
+  emit('cover-selected', cover);
   emit('update:modelValue', false);
 };
+
+const clearInput = () => {
+  coverSrc.value = '';
+  customCover.value = '';
+  customCoverFile.value = [];
+};
+
+defineExpose({
+  clearInput
+});
 </script>
 
 <style lang="scss">

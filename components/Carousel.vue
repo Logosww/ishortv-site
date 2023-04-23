@@ -12,7 +12,7 @@
       >
       <a 
         class="sv-carousel-cover__mask"
-        :href="`/video/${currentCarouselItem?.key}`"
+        :href="`/video/${currentCarouselItem?.videoKey}`"
         target="_blank"
       >
         <div class="sv-carousel-cover__mask-left"></div>
@@ -34,7 +34,7 @@
       >
         <div class="sv-carousel-thumbnail__border"></div>
         <div class="sv-carousel-thumbnail__content">
-          <a :href="`/video/${item.key}`" target="_blank">
+          <a :href="`/video/${item.videoKey}`" target="_blank">
             <img
               :aspect-ratio="16 / 9"
               :src="item.coverUrl"

@@ -50,9 +50,9 @@
         <div class="sv-modal-add-video__content-left">
           <div>
             <div class="sv-modal-add-video__video" @click="handlePlayVideo">
-              <v-img 
+              <v-img
                 :aspect-ratio="16 / 9"
-                :src="coverBase64"
+                :src="coverSrc"
                 cover
               />
               <div class="sv-modal-add-video__video-mask">
@@ -68,7 +68,7 @@
             </div>
             <v-img
               class="sv-modal-add-video__cover"
-              :src="customCover || coverBase64"
+              :src="customCover || coverSrc"
               :aspect-ratio="16 / 9"
               cover
             />
@@ -137,6 +137,7 @@
     :filename="videoFilename"
   />
   <SetCoverModal 
+    ref="SetCoverModalRef"
     :src="videoSrc"
     :type="videoType"
     :duration="videoDuration"
@@ -159,6 +160,8 @@ import { base64ToFile } from '@/utils/file';
 import prettyBytes from 'pretty-bytes';
 import PlayVideoModal from './PlayVideoModal.vue';
 import { uploadCategories as categories } from '@/constants';
+
+import SetCoverModal from './SetCoverModal.vue';
 
 import type { VTextField } from 'vuetify/components';
 import type { CategoryType, CollectionType } from '@/composables/use-api-types';
@@ -214,12 +217,14 @@ const SUPPORTED_FILE_TYPE = [
   'm4v'
 ];
 
-const coverBase64 = ref('');
+const coverSrc = ref('');
 const customCover = ref('');
 const videoSrc = ref('');
 const videoType = ref('');
 const videoFilename = ref('');
 const videoDuration = ref(0);
+
+const coverFile = ref<File>();
 
 const isFileSelected = ref(false);
 const isUploaded = ref(false);
@@ -231,6 +236,7 @@ const uploadingDetail = ref('');
 const modalVisible = computed(() => props.modelValue);
 const FileInputRef = shallowRef<HTMLInputElement>();
 const UploadBtnRef = ref<HTMLDivElement>();
+const SetCoverModalRef = shallowRef<typeof SetCoverModal>();
 
 const playModalVisible = ref(false);
 const setCoverModalVisible = ref(false);
@@ -286,7 +292,7 @@ const doUpload = async (rawFile: File) => {
   if(videoSrc.value) URL.revokeObjectURL(videoSrc.value);
   videoFilename.value = rawFile.name;
   const { imageSrc, videoUrl, duration } = await getVideoCover(rawFile);
-  coverBase64.value = imageSrc;
+  coverSrc.value = imageSrc;
   videoSrc.value = videoUrl;
   videoType.value = rawFile.type;
   videoDuration.value = duration;
@@ -353,12 +359,21 @@ const handleReset = () => {
   FileInputRef.value!.click();
 };
 
-const handleReceiveCover = (coverSrc: string) => {
-  coverBase64.value = coverSrc;
+const handleReceiveCover = (
+  cover: string | { url: string; file: File }
+) => {
+  if(typeof cover === 'string') {
+    coverSrc.value = cover;
+    coverFile.value = base64ToFile(cover);
+  }
+  else {
+    coverSrc.value = cover.url;
+    coverFile.value = cover.file;
+  }
 };
 
 const handleAddVideo = async () => {
-  const image = base64ToFile(coverBase64.value);
+  const image = coverFile.value ?? base64ToFile(coverSrc.value);
   const key = await uploadFile(image);
   if(!key) {
     message({ type: 'danger', message: '封面上传失败' });
@@ -375,6 +390,7 @@ const handleAddVideo = async () => {
   if(!isSucceed) message({ type: 'danger', message: '添加视频失败，请重试' });
   else {
     message({ type: 'success', message: '添加视频成功' });
+    SetCoverModalRef.value!.clearInput();
     handleClose();
   }
 };

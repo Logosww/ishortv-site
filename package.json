@@ -13,13 +13,13 @@
     "@nuxtus/nuxt-localtunnel": "^1.0.1",
     "@types/get-image-colors": "^4.0.2",
     "@types/mockjs": "^1.0.7",
-    "@types/node": "^18.15.11",
+    "@types/node": "^18.15.13",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "lodash-es": "^4.17.21",
     "lodash-unified": "^1.0.3",
     "mockjs": "^1.1.0",
-    "nuxt": "^3.4.1",
+    "nuxt": "^3.4.2",
     "sass": "^1.62.0",
     "vite-plugin-vuetify": "^1.0.2",
     "vue-gtag-next": "^1.14.0"
@@ -31,6 +31,6 @@
     "normalize.css": "^8.0.1",
     "pretty-bytes": "^6.1.0",
     "video.js": "^8.0.4",
-    "vuetify": "^3.1.14"
+    "vuetify": "^3.1.15"
   }
 }
