@@ -37,7 +37,7 @@ export const useGetVideos = (
   post('/vod/getCategoryVideos', params, undefined, { watch }) as HttpResponse<VideoInfo[]>;
 
 /**
- * this interface will be called only on client-side after hydration,
+ * this composable will be called only on client-side after hydration,
  * so consider to use native Fetch API instead of AyncData.
  */
 export const useGetMoreVideos = (

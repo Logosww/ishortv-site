@@ -141,7 +141,7 @@ const storedVolume = ref(50);
 const currentTime = ref(0);
 const duration = ref(0);
 const currentProgress = ref(0);
-const playBtnIcon = ref(mdiPlay);
+const playBtnIcon = ref(props.autoplay ? mdiPause : mdiPlay);
 const fullScreen = ref(!props.isModal);
 const stopOnProgress = ref(false);
 const showVolumeBar = ref(false);
@@ -233,7 +233,7 @@ const onProgress = useThrottleFn(() => {
 
 const initPlayer = (playerInstance: any) => {
   let _this = playerInstance;
-  _this.one('loadedmetadata', () => { 
+  _this.one('loadedmetadata', () => {
     duration.value = player.duration()!; 
     player.volume(volume.value / 100);
   });

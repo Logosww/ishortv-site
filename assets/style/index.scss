@@ -12,4 +12,5 @@
   display: grid;
   grid-template-columns: repeat(var(--grid-item-num), 1fr);
   gap: var(--grid-gap);
+  min-height: 500px;
 }

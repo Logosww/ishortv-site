@@ -18,9 +18,23 @@
       padding: 0 7vw;
     }
 
-    .sv-section-content {
+    .sv-section-content:not(.video-page) {
       padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding));
       padding-right: 66px;
+    }
+  }
+
+  .sv-footer {
+    margin-top: 100px;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    padding: 20px 0;
+    border-top: 1px solid rgb(88, 85, 85);
+    
+    a {
+      text-decoration: none;
+      color: rgb(197, 197, 197);
     }
   }
 }

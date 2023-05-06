@@ -9,7 +9,6 @@
         id="sv-video__original"
         ref="VideoRef"
         preload="auto"
-        :src="src"
         :type="type"
         :autoplay="playerOptions?.autoplay ?? true"
       >
@@ -21,7 +20,7 @@
       :is-modal="isModal"
       :title="title"
       @close-modal="emit('close-modal')"
-      autoplay
+      :autoplay="playerOptions?.autoplay ?? true"
       v-if="!hideControl && isSetup"
     />
   </div>
@@ -59,7 +58,7 @@ const defaultPlayerOptions = {
 };
 const playerOptions: any = Object.assign(defaultPlayerOptions, props.playerOptions);
 
-const utilControlCompSetup = () => {
+const untilControlCompSetup = () => {
   return new Promise<void>(resolve => {
     let timer = setInterval(() => {
       if(VideoOverlayRef.value) {
@@ -74,8 +73,9 @@ onMounted(() => {
   player.value = videojs('sv-video__original', playerOptions, async function onReady(this: any) {
     if(props.hideControl) return;
     isSetup.value = true;
-    await utilControlCompSetup();
+    await untilControlCompSetup();
     VideoOverlayRef.value!.initPlayer(this);
+    player.value!.src(props.src);
   });
 });
 

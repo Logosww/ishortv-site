@@ -10,13 +10,21 @@
     <Categories v-if="!isAuthorized && !isVideoPage" />
     <main class="sv-section-main" v-if="!isAuthorized">
       <Carousel v-if="!isVideoPage" />
-      <section class="sv-section-content">
+      <section
+        :class="[
+          'sv-section-content',
+          isVideoPage ? 'video-page' : ''
+        ]"
+      >
         <slot />
       </section>
     </main>
     <main class="sv-section-main admin" v-else>
       <slot />
     </main>
+    <footer class="sv-footer">
+      <a href=" " target="_blank">豫ICP备2023001996号-1</a>
+    </footer>
   </div>
 </template>
 

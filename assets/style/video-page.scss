@@ -1,0 +1,36 @@
+.sv-video-page {
+  position: relative;
+  padding: 0 10px;
+  padding-top: 80px;
+
+  .sv-video-page-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .sv-video-page-container-left {
+      position: sticky;
+      height: fit-content;
+      width: 70%;
+
+      .sv-video-title {
+        width: 100%;
+
+        .sv-video-title__text {
+          color: #fff;
+          font-size: 22px;
+          line-height: 34px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .sv-video-page-container-right {
+      position: relative;
+      flex: none;
+      margin-left: 30px;
+      width: 20%;
+    }
+  }
+}

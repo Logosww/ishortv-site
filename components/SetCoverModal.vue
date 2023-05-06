@@ -76,7 +76,7 @@
 import { mdiClose, mdiCheckBold, mdiImage, mdiCamera } from '@mdi/js';
 import VideoContent from './VideoContent.vue';
 
-const props = defineProps<{ 
+const props = defineProps<{
   modelValue: boolean;
   src: string;
   type: string;

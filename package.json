@@ -9,18 +9,18 @@
   },
   "devDependencies": {
     "@mdi/js": "^7.2.96",
-    "@nuxt/devtools": "^0.4.1",
+    "@nuxt/devtools": "^0.4.2",
     "@nuxtus/nuxt-localtunnel": "^1.0.1",
     "@types/get-image-colors": "^4.0.2",
     "@types/mockjs": "^1.0.7",
-    "@types/node": "^18.15.13",
+    "@types/node": "^18.16.1",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
     "lodash-es": "^4.17.21",
     "lodash-unified": "^1.0.3",
     "mockjs": "^1.1.0",
     "nuxt": "^3.4.2",
-    "sass": "^1.62.0",
+    "sass": "^1.62.1",
     "vite-plugin-vuetify": "^1.0.2",
     "vue-gtag-next": "^1.14.0"
   },
@@ -30,7 +30,7 @@
     "nanoid": "^4.0.2",
     "normalize.css": "^8.0.1",
     "pretty-bytes": "^6.1.0",
-    "video.js": "^8.0.4",
+    "video.js": "^8.3.0",
     "vuetify": "^3.1.15"
   }
 }
