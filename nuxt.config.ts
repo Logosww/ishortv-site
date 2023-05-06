@@ -54,5 +54,7 @@ export default defineNuxtConfig({
     shim: false
   },
 
-  devtools: true
+  devtools: {
+    enabled: true
+  }
 })

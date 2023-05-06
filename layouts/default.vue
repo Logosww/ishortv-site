@@ -23,7 +23,7 @@
       <slot />
     </main>
     <footer class="sv-footer">
-      <a href=" " target="_blank">豫ICP备2023001996号-1</a>
+      <a href="https://beian.miit.gov.cn" target="_blank">豫ICP备2023001996号-1</a>
     </footer>
   </div>
 </template>

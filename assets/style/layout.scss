@@ -35,6 +35,11 @@
     a {
       text-decoration: none;
       color: rgb(197, 197, 197);
+      transition: color .3s ease;
+
+      &:hover {
+        color: rgb(226, 226, 226);
+      }
     }
   }
 }
