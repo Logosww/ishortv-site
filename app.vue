@@ -11,7 +11,8 @@ import { CDN_URL } from '@/constants';
 import 'normalize.css';
 
 useHead({
-  titleTemplate: (titleChunck) => titleChunck ? `${titleChunck} | iShortV` : 'iShortV',
+  // titleTemplate: (titleChunck) => titleChunck ? `${titleChunck} | iShortV` : 'iShortV',
+  title: '我的学习经验分享',
   link: [
     {
       rel: 'icon',
