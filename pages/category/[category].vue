@@ -16,18 +16,31 @@ import type { CategoryType, ParamsForVideoFetch } from '@/composables/use-api-ty
 
 const eventBus = inject(eventBusContextKey);
 
+let lastId = 0, isMore = true;
 const currentCollection = useCollection();
 const currentCategory = useRoute().params.category as CategoryType;
 const videoFetchParams = 
-  computed<ParamsForVideoFetch>(() => [currentCollection.value, currentCategory]);
+  computed(() => ({
+    categories: [currentCollection.value, currentCategory] as ParamsForVideoFetch,
+    lastId: 0
+  }));
 const { data: videos } = await useGetVideos(videoFetchParams);
+lastId = videos.value?.length ? videos.value.at(-1)!.id : 0;
 
-eventBus?.on(async e => {
+const unsubscribe = eventBus?.on(async e => {
   if(e === 'fetch-more') {
-    const moreVideos = await useGetMoreVideos([currentCollection.value, currentCategory]);
-    moreVideos.length && videos.value.push(...moreVideos);
+    if(!isMore) return;
+    const moreVideos = await useGetMoreVideos({
+      lastId,
+      categories: videoFetchParams.value.categories
+    });
+    moreVideos.length
+      ? (lastId = moreVideos.at(-1)!.id) && videos.value?.push(...moreVideos)
+      : isMore = false;
   }
 });
+
+onUnmounted(() => unsubscribe?.());
 </script>
 
 <style lang="scss">

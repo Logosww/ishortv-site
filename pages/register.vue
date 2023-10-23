@@ -1,7 +1,7 @@
 <template>
   <div class="register-box-wrapper">
     <div class="register-box-container">
-      <img src="@/assets/img/logo.png" alt="" class="register-box-logo" @click="navigateTo('/')">
+      <img :src="`${CDN_URL}/logo@2x.png`" class="register-box-logo" @click="navigateTo('/')">
       <div class="register-box-content">
         <span class="register-box-content__title">新用户注册</span>
         <form class="register-box-content__form">
@@ -26,6 +26,8 @@
 </template>
 
 <script setup lang="ts">
+import { CDN_URL } from '@/constants';
+
 import type { RegisterInfo } from '@/composables/use-api-types';
 
 definePageMeta({ layout: false });

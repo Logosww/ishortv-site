@@ -36,7 +36,7 @@
         </v-window-item>
         <v-window-item value="upload">
           <v-img 
-            class="sv-set-cover-modal__cover-preview"
+            class="sv-modal-set-cover__cover-preview"
             :src="customCover"
             :aspect-ratio="16 / 9"
             width="500"
@@ -56,18 +56,20 @@
           />
         </v-window-item>
       </v-window>
-      <v-btn
-        style="margin-top: 10px;"
-        color="blue"
-        rounded="pill"
-        :prepend-icon="mdiCheckBold"
-        :disabled="tab === 'upload' && !customCover"
-        width="100"
-        height="42"
-        @click="handleCapture"
-      >
-        确定
-      </v-btn>
+      <div class="sv-modal-set-cover__footer">
+        <v-btn
+          style="margin-top: 10px;"
+          color="blue"
+          rounded="pill"
+          :prepend-icon="mdiCheckBold"
+          :disabled="tab === 'upload' && !customCover"
+          width="100"
+          height="42"
+          @click="handleCapture"
+        >
+          确定
+        </v-btn>
+      </div>
     </div>
   </v-dialog>
 </template>
@@ -103,7 +105,15 @@ const options = reactive({
 });
 
 const duration = computed(() => props.duration);
-const modalVisible = computed(() => props.modelValue);
+const modalVisible = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(val) {
+    emit('update:modelValue', val);
+    return val;
+  }
+});
 const VideoElementRef = computed(() => VideoContentRef.value?.VideoRef);
 const { formattedTimeline } = useFormatTime(resolvedTime, duration);
 const { captureVideoCover } = useCaptureVideo(VideoElementRef);

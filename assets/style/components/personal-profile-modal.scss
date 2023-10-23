@@ -1,0 +1,68 @@
+@use '../mixin' as *;
+
+@include modal('personal-profile') {
+
+  .sv-modal-personal-profile__content {
+
+    .sv-modal-personal-profile__avatar {
+      margin: 0 auto;
+      display: flex;
+      position: relative;
+      width: 81px;
+      height: 81px;
+      border-radius: 50%;
+      overflow: hidden;
+
+      .sv-modal-personal-profile__avatar-mask {
+        @include mask();
+        opacity: 0;
+      }
+
+      &:hover {
+        .sv-modal-personal-profile__avatar-mask {
+          opacity: .8;
+        }
+      }
+    }
+
+    .sv-modal-personal-profile__info {
+      margin-top: 24px;
+
+      .sv-modal-personal-profile__info-item {
+        font-size: 16px;
+        line-height: 18px;
+        width: 400px;
+        padding-left: 32px;
+
+        .sv-modal-personal-profile__info-item__label {
+          color: #fff;
+          font-weight: 700;
+          margin-right: 16px;
+          color: #fff;
+          user-select: none;
+        }
+
+        .sv-modal-personal-profile__info-item__value {
+          color: #ddd;
+        }
+
+      }
+
+      .sv-modal-personal-profile__info-item + .sv-modal-personal-profile__info-item {
+        margin-top: 9px;
+      }
+    }
+  }
+}
+
+@include modal('modify-profile') {
+
+  .sv-modal-modify-profile__content {
+    width: 360px;
+    padding: 0 20px;
+  }
+
+  .sv-modal-modify-profile__footer {
+    margin-top: 0;
+  }
+}

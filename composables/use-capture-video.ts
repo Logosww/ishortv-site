@@ -1,9 +1,7 @@
-import { resolveUnref } from '@vueuse/core';
-
-import type { MaybeComputedRef } from '@vueuse/shared';
+import type { MaybeRefOrGetter } from '@vueuse/shared';
 
 export const useCaptureVideo = (
-  target: MaybeComputedRef<HTMLVideoElement | undefined>
+  target: MaybeRefOrGetter<HTMLVideoElement | undefined>
 ) => {
 
   const captureVideoCover = () => {

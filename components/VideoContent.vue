@@ -2,6 +2,7 @@
   <div 
     :class="['sv-video-wrapper', isModal ? 'is-modal' : '']"
     :style="{ width: `${width}px`, height: `${height}px` }"
+    @click.right.prevent
   >
     <div class="sv-video-container">
       <video
@@ -35,7 +36,7 @@ import 'video.js/dist/video-js.css';
 export type Player = ReturnType<typeof videojs>;
 
 const props = defineProps<{ 
-  src: string; 
+  src: string | null; 
   type?: string;
   isModal?: boolean;
   width?: number;
@@ -48,8 +49,9 @@ const props = defineProps<{
 
 const emit = defineEmits(['close-modal']);
 
+let player: Player;
+
 const isSetup = ref(false);
-const player = ref<Player>();
 const VideoRef = ref<HTMLVideoElement>();
 const VideoOverlayRef = ref<InstanceType<typeof VideoOverlay>>();
 
@@ -65,22 +67,25 @@ const untilControlCompSetup = () => {
         clearInterval(timer);
         resolve();
       }
-    }, 10);
+    }, 100);
   })
 };
 
 onMounted(() => {
-  player.value = videojs('sv-video__original', playerOptions, async function onReady(this: any) {
+  player = videojs('sv-video__original', playerOptions, async function onReady(this: any) {
     if(props.hideControl) return;
     isSetup.value = true;
     await untilControlCompSetup();
     VideoOverlayRef.value!.initPlayer(this);
-    player.value!.src(props.src);
+    props.src && player!.src({
+      src: props.src,
+      type: props.type ?? 'video/mp4'
+    });
   });
 });
 
 onBeforeUnmount(() => {
-  player.value?.dispose();
+  player?.dispose();
 });
 
 defineExpose({

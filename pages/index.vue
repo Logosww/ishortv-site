@@ -16,17 +16,30 @@ import type { ParamsForVideoFetch } from '@/composables/use-api-types';
 
 const eventBus = inject(eventBusContextKey);
 
+let lastId = 0, isMore = true;
 const currentCollection = useCollection();
 const videoFetchParams = 
-  computed<ParamsForVideoFetch>(() => [currentCollection.value, 'recommend']);
+  computed(() => ({
+    categories: [currentCollection.value, 'recommend'] as ParamsForVideoFetch,
+    lastId: 0
+  }));
 const { data: videos } = await useGetVideos(videoFetchParams);
+lastId = videos.value?.length ? videos.value.at(-1)!.id : 0;
 
-eventBus?.on(async e => {
+const unsubscribe = eventBus?.on(async e => {
   if(e === 'fetch-more') {
-    const moreVideos = await useGetMoreVideos([currentCollection.value, 'recommend']);
-    moreVideos.length && videos.value.push(...moreVideos);
+    if(!isMore) return;
+    const moreVideos = await useGetMoreVideos({
+      lastId,
+      categories: videoFetchParams.value.categories
+    });
+    moreVideos.length
+      ? (lastId = moreVideos.at(-1)!.id) && videos.value?.push(...moreVideos)
+      : isMore = false;
   }
 });
+
+onUnmounted(() => unsubscribe?.());
 </script>
 
 <style lang="scss">

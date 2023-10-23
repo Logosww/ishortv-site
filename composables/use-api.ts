@@ -1,66 +1,82 @@
-import { get, post, nativeFetch } from '@/utils/http';
+import { get, post, del, nativeFetch } from '@/utils/http';
 
-import type { MaybeComputedRef } from '@vueuse/core';
-import type { HttpResponse, WatchOption } from '@/utils/http';
+import type { WatchOption, OtherUseFetchOptions } from '@/utils/http';
 import type {
   UserInfo,
   RegisterInfo,
   VideoInfo,
-  PagingVideoInfo,
+  PagingData,
   COSBucketSecret,
   ParamsForVideoFetch,
+  BannerVideoInfo,
 } from './use-api-types';
 
-export const useLogin = (params: { username: string, password: string }) => {
-  return post('/user/login', params) as HttpResponse<string>;
-};
+export const useLogin = (params: { username: string, password: string }) => 
+  nativeFetch<string>('/user/login', 'post', params);
 
-export const useRegister = (params: RegisterInfo) => {
-  return post('/user/register', params) as HttpResponse<boolean>;
-};
+export const useRegister = (params: RegisterInfo) => 
+  nativeFetch<boolean>('/user/register', 'post', params);
 
-export const useGetUserInfo = (watch?: WatchOption) =>
-  get('/user/getUserInfo', undefined, undefined, { watch }) as HttpResponse<UserInfo>;
+export const useGetUserInfo = () =>
+  get<UserInfo>('/user/getUserInfo');
 
-export const useLogout = () => post('/user/logout') as HttpResponse<null>;
+export const useModifyUserInfo = (params: Partial<UserInfo>) =>
+  put<void>('/user/modifyUser', params);
+
+export const useLogout = () => nativeFetch<void>('/user/logout', 'post');
+
+export const useModifyPassword = (
+  params: {
+    oldPasswd: string;
+    newPasswd: string;
+  }
+) => put<void>('/user/modifyPassword', params);
+
+export const useDeleteAccount = () => del<void>('/user/deleteUser');
 
 export const useGetBannerVideos = (
-  params: MaybeComputedRef<ParamsForVideoFetch>,
-  watch?: WatchOption
+  params: MaybeRefOrGetter<ParamsForVideoFetch>,
+  otherOptions?: OtherUseFetchOptions<BannerVideoInfo[]>
 ) => 
-  post('/vod/getBannerVideos', params, undefined, { watch }) as HttpResponse<VideoInfo[]>;
+  post<BannerVideoInfo[]>('/public/getBannerVideos', params, undefined, otherOptions);
 
 export const useGetVideos = (
-  params: MaybeComputedRef<ParamsForVideoFetch>,
-  watch?: WatchOption
+  params: MaybeRefOrGetter<{ categories: ParamsForVideoFetch, lastId: number }>,
 ) => 
-  post('/vod/getCategoryVideos', params, undefined, { watch }) as HttpResponse<VideoInfo[]>;
+  post<VideoInfo[]>('/public/getMoreVideos', params);
+
+export const useAdminGetVideos = (
+  params: MaybeRefOrGetter<{ categories: ParamsForVideoFetch, lastId: number }>,
+  otherOptions?: OtherUseFetchOptions<VideoInfo[]>
+) =>
+  post<VideoInfo[]>('/admin/selectCategoryBannerVideos', params, undefined, otherOptions);
 
 /**
  * this composable will be called only on client-side after hydration,
  * so consider to use native Fetch API instead of AyncData.
  */
 export const useGetMoreVideos = (
-  params: ParamsForVideoFetch,
+  params: {
+    categories: ParamsForVideoFetch,
+    lastId: number
+  }
 ) => 
-  nativeFetch('/vod/getMoreVideos', 'post', params) as Promise<VideoInfo[]>;
+  nativeFetch<VideoInfo[]>('/public/getMoreVideos', 'post', params);
 
 export const useGetAllPagingVideos = (
-  params: MaybeComputedRef<{
+  params: MaybeRefOrGetter<{
     page: number,
     size: number,
     categories: ParamsForVideoFetch
-  }>,
-  watch?: WatchOption
-) => post(
-      `/vod/getAllVideos`,
-      params,
-      undefined,
-      { watch }
-    ) as HttpResponse<PagingVideoInfo>;
+  }>
+) => 
+  post<PagingData<VideoInfo>>('/admin/getCategoryAllVideos', params);
 
 export const useGetVideoUrl = (key: string) =>
-  get('/vod/getVideoUrl', { key }) as HttpResponse<string>;
+  get<string>('/public/getVideoUrl', { key });
+
+export const useGetVideoInfo = (key: string) =>
+  get<VideoInfo>('/public/getVideo', { key });
 
 export const useAddVideo = (
   params: {
@@ -70,16 +86,42 @@ export const useAddVideo = (
     categories: ParamsForVideoFetch;
     tags: string[]
   }
-) => nativeFetch(
-      '/vod/admin/saveVideoMsg',
-      'post',
-      params
-    ) as Promise<boolean>;
+) => 
+  nativeFetch<boolean>(
+    '/admin/saveVideoMsg',
+    'post',
+    params
+  );
 
 export const useGetCOSSecret = () =>
-  post(
-    '/vod/admin/cos/getCosSecret',
+  post<COSBucketSecret>(
+    '/admin/getCosSecret',
     undefined,
     undefined,
     { immediate: false }
-  ) as HttpResponse<COSBucketSecret>;
+  );
+
+export const useGetRecommendVideos = (key: string) =>
+  get<VideoInfo[]>('/public/getRelatedSuggestionVideos', { key });
+
+export const useSetBannerVideo = (id: number) =>
+  nativeFetch<void>('/admin/saveBannerVideo', 'post', { id, bannerCoverKey: '' });
+
+export const useSetBannerVideoCover = (params: { id: number; bannerCoverKey: string }) =>
+  nativeFetch<void>('/admin/saveBannerVideo', 'post', params);
+
+export const useDeleteBannerVideo = (id: number) =>
+  del<void>('/admin/deleteBannerVideo', { id });
+
+export const useGetHitVideos = () => get<VideoInfo[]>('/public/getHotVideos');
+
+export const useCompleteQuery = (params: { likeVideoName: string }) =>
+  nativeFetch<string[]>('/public/querySuggestions/queryListVideoName', 'get', params);
+
+export const useQueryVideos = (params: MaybeRefOrGetter<{
+  query: string;
+  order: 0 | 1 | 2;
+  category: CategoryType;
+  page: number;
+  size?: number;
+}>) => post<PagingData<VideoInfo>>('/public/getPageQueryVideos', params);

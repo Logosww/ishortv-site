@@ -42,7 +42,7 @@ const messageProps = {
 };
 
 export interface MessageOptions {
-  type?: string;
+  type?: 'info' | 'success' | 'danger' | 'warn';
   message: string;
   onClose?: () => void
 };

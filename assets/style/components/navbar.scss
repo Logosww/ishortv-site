@@ -21,7 +21,7 @@
 
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(25, 25, 26, 0.65);
+    background-color: rgba(25, 25, 26, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.325);
     animation: slide-down-in .5s cubic-bezier(0.22,0.61,0.36,1) forwards;
   }
@@ -62,7 +62,7 @@
         transition: background-color .3s ease;
 
         &.active {
-          background-color: #1a8dbe;
+          background-color: #2a97eb;
           color: #fff;
         }
       }

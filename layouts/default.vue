@@ -6,14 +6,15 @@
     :infinite-scroll-distance="500"
     :infinite-scroll-immediate="false"
   >
-    <Navbar :scroll-y="scrollY" :is-video-page="isVideoPage" />
-    <Categories v-if="!isAuthorized && !isVideoPage" />
-    <main class="sv-section-main" v-if="!isAuthorized">
-      <Carousel v-if="!isVideoPage" />
+    <Navbar :scroll-y="scrollY" :is-video-page="isVideoPage || isSearchPage" :hide-search="isSearchPage" />
+    <Categories v-if="!isAuthorized && !isVideoPage && !isSearchPage" />
+    <main :class="['sv-section-main', isSearchPage && 'search-page']" v-if="!isAuthorized">
+      <Carousel v-if="!isVideoPage && !isSearchPage" />
       <section
         :class="[
           'sv-section-content',
-          isVideoPage ? 'video-page' : ''
+          isVideoPage && 'video-page',
+          isSearchPage && 'search-page'
         ]"
       >
         <slot />
@@ -44,7 +45,9 @@ const WrapperRef = ref<HTMLDivElement>();
 const { y: scrollY } = useScroll(WrapperRef);
 
 const route = useRoute();
-const isVideoPage = /\/video\//.test(route.path);
+const isVideoPage = /^\/video\//.test(route.path);
+const isSearchPage = /^\/search/.test(route.path);
+
 const currentCategory = computed(() => 
   (
     route.params.category

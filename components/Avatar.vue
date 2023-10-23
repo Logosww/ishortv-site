@@ -16,6 +16,7 @@
           <v-avatar
             color="blue"
             size="44"
+            :image="userInfo?.avatar"
           >
           {{ userInfo?.nickname.at(0) }}
           </v-avatar>
@@ -27,6 +28,7 @@
             <v-avatar
               color="blue"
               size="44"
+              :image="userInfo?.avatar"
             >
               {{ userInfo?.nickname.at(0) }}
             </v-avatar>
@@ -38,9 +40,10 @@
             <v-btn
               rounded
               variant="text"
+              @click="modalVisible = true"
             >
-              <v-icon :icon="mdiAccountEdit" />
-              编辑资料
+              <v-icon :icon="mdiAccount" />
+              个人资料
             </v-btn>
             <v-divider class="my-3"></v-divider>
             <v-btn
@@ -55,11 +58,14 @@
         </v-card-text>
       </v-card>
     </v-menu>
+    <PersonalProfileModal v-model="modalVisible" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { mdiAccountEdit, mdiLogout } from '@mdi/js';
+import { mdiAccount, mdiLogout } from '@mdi/js';
+
+const modalVisible = ref(false);
 
 const message = useMessage();
 const auth = useAuth();

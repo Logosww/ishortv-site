@@ -2,7 +2,7 @@
   <v-dialog v-model="modalVisible" scroll-strategy="none">
     <div class="sv-modal-add-video">
       <div class="sv-modal-add-video__header">
-        <span class="sv-modal-add-video__title">新增视频描述</span>
+        <span class="sv-modal-add-video__title">新增视频</span>
         <!-- <div class="sv-modal-add-video__action">
           <v-icon :icon="mdiCloseThick" />
         </div> -->
@@ -233,7 +233,17 @@ const uploadSpeed = ref(0);
 const uploadedBytes = ref(0);
 const fileSize = ref('');
 const uploadingDetail = ref('');
-const modalVisible = computed(() => props.modelValue);
+
+const modalVisible = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(val) {
+    emit('update:modelValue', val);
+    return val;
+  }
+});
+
 const FileInputRef = shallowRef<HTMLInputElement>();
 const UploadBtnRef = ref<HTMLDivElement>();
 const SetCoverModalRef = shallowRef<typeof SetCoverModal>();
@@ -287,7 +297,7 @@ const doUpload = async (rawFile: File) => {
   }
   form.videoKey = key;
 
-  // get cover after upload.
+  // get cover after uploaded.
   FileInputRef.value!.value = '';
   if(videoSrc.value) URL.revokeObjectURL(videoSrc.value);
   videoFilename.value = rawFile.name;
@@ -321,8 +331,7 @@ const getVideoCover = (file: File) => {
       reject(e);
     });
   });
-} 
-
+};
 
 const handleChange = () => {
   const { files } = FileInputRef.value!;

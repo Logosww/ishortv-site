@@ -1,0 +1,148 @@
+@use '../var' as *;
+@use '../mixin' as *;
+
+@include modal('banner-manager') {
+
+  .sv-modal-banner-manager__content {
+
+    .sv-modal-banner-manager__filter {
+      display: flex;
+      align-items: flex-start;
+
+      .sv-modal-banner-manager__collection {
+        margin-right: 500px;
+
+        .v-label {
+          color: #fff;
+          opacity: 1;
+        }
+      }
+
+      .sv-modal-banner-manager__category {
+        width: 180px;
+  
+        .v-label.v-field-label {
+          color: #fff;
+          opacity: .7;
+        }
+  
+        .v-icon, .v-select__selection-text {
+          color: #fff;
+        }
+      }
+    }
+
+    .sv-modal-banner-manager__table {
+      width: 820px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+
+      .sv-modal-banner-manager__table-item__title {
+        max-width: 240px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .sv-modal-banner-manager__videos-wrapper {
+    width: 1100px;
+    max-height: 600px;
+    padding-right: 16px;
+    overflow-y: scroll;
+    
+    .sv-modal-banner-manager__videos-list {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 12px;
+
+      .sv-modal-banner-manager__videos-item {
+        position: relative;
+        cursor: pointer;
+    
+        .sv-modal-banner-manager__videos-item__cover {
+          position: relative;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 4px solid transparent;
+          transition: border-color .3s ease;
+          aspect-ratio: 16 / 9;
+  
+          .v-img {
+            width: 100%;
+            transform: scale(1.08);
+            transition: transform .3s ease;
+          }
+  
+          .sv-modal-banner-manager__videos-item__mask {
+            @include mask();
+            opacity: 0;
+            color: $color-primary;
+            font-size: 32px;
+          }
+        }
+    
+        .sv-modal-banner-manager__videos-item__title {
+          margin-top: 15px;
+          font-size: 16px;
+          color: #fff;
+          transition: color .3s ease;
+        }
+  
+        &:hover, &.is-selected {
+          .v-img {
+            transform: scale(1);
+          }
+          .sv-modal-banner-manager__videos-item__cover {
+            border-color: $color-primary;
+          }
+          .sv-modal-banner-manager__videos-item__title {
+            color: $color-primary;
+          }
+        }
+  
+        &.is-selected {
+          .sv-modal-banner-manager__videos-item__mask {
+            opacity: .8;
+          }
+        }
+      }
+    }
+  }
+
+  .sv-modal-banner-manager__banner-cover {
+    position: relative;
+    width: 200px;
+    margin: 16px;
+    margin-left: 0;
+    margin-right: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+
+    .sv-modal-banner-manager__banner-cover__mask {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(0, 0, 0, .3);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity .3s ease;
+      opacity: 0;
+    }
+    
+    &.is-uploading, &:hover {
+      .sv-modal-banner-manager__banner-cover__mask {
+        opacity: 1;
+      }
+    }
+
+  }
+}

@@ -1,11 +1,26 @@
 <template>
   <div class="sv-content-body">
     <VideoCard 
-      v-for="(item, index) in pagingVideos.items"
+      v-for="(item, index) in pagingVideos?.items"
       :key="index"
       :video-info="item"
     />
+    <transition name="fade">
+      <div class="sv-content-body__mask" v-show="isLoading">
+        <v-progress-circular color="blue-lighten-1" :size="44" :width="5" indeterminate />
+      </div>
+    </transition>
   </div>
+  <v-pagination
+    v-if="pagingVideos && pagingVideos.totalPage > 1"
+    class="sv-videos-pagination"
+    theme="dark"
+    color="blue-lighten-3"
+    rounded="circle"
+    v-model="currentPage"
+    :length="pagingVideos?.totalPage"
+    @update:model-value="pagingVideos && (pagingVideos.items = [])"
+  />
 </template>
 
 <script setup lang="ts">
@@ -15,15 +30,17 @@ definePageMeta({
   middleware: 'authorized'
 });
 
+const currentPage = ref(1);
+
 const currentCollection = useCollection();
 const videoFetchParams = 
   computed(() => ({
-    page: 1,
     size: 12,
-    categories: [currentCollection.value, 'all'] as ParamsForVideoFetch
+    page: currentPage.value,
+    categories: [currentCollection.value] as ParamsForVideoFetch
   }))
-const { data: pagingVideos, refresh } = 
-  await useGetAllPagingVideos(videoFetchParams, [currentCollection]);
+const { data: pagingVideos, pending: isLoading } = 
+  await useGetAllPagingVideos(videoFetchParams);
 
 </script>
 

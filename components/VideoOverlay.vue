@@ -46,6 +46,7 @@
                 rounded="pill"
                 width="64"
                 @click="showQualityMenu = !showQualityMenu"
+                disabled
                 v-if="isStreaming"
               >
                 {{ currentQuality.title }}

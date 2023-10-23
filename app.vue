@@ -1,9 +1,11 @@
 <template>
   <div class="app">
-    <NuxtLayout>
-      <NuxtLoadingIndicator />
-      <NuxtPage />
-    </NuxtLayout>
+    <v-app>
+      <NuxtLayout>
+        <NuxtLoadingIndicator />
+        <NuxtPage />
+      </NuxtLayout>
+    </v-app>
   </div>
 </template>
 <script setup>

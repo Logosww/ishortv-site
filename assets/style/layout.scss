@@ -13,12 +13,19 @@
     position: relative;
     width: 100%;
 
-    &.admin {
-      margin-top: 112px;
+    &.admin, &.search-page {
       padding: 0 7vw;
     }
 
-    .sv-section-content:not(.video-page) {
+    &.admin {
+      margin-top: 122px;
+    }
+
+    &.search-page {
+      margin-top: 80px;
+    }
+
+    .sv-section-content:not(.video-page, .search-page) {
       padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding));
       padding-right: 66px;
     }
@@ -45,16 +52,16 @@
 }
 
 @include respond-to('sm') {
-  .sv-content-body {
+
+  :root {
     --grid-item-num: 2;
     --grid-gap: 20px;
   }
-
 }
 
 @include respond-to('lg') {
 
-  .sv-content-body {
+  :root {
     --grid-item-num: 3;
   }
 }
@@ -76,6 +83,10 @@
 
 @include respond-to('xxxl') {
 
+  :root {
+    --grid-item-num: 4;
+  }
+
   .sv-navbar-container {
     .sv-search-box.center {
       width: 500px;
@@ -87,29 +98,26 @@
       width: 400px;
     }
   }
-
-  .sv-content-body {
-    --grid-item-num: 4;
-  }
 }
 
 @include respond-to('xxxxl') {
+
+  :root {
+    --grid-item-num: 4;
+    --grid-gap: 30px;
+  }
 
   .sv-navbar-container.admin {
     .sv-search-box {
       width: 500px;
     }
   }
-
-  .sv-content-body {
-    --grid-item-num: 4;
-    --grid-gap: 30px;
-  }
 }
 
 @include respond-to('max') {
   :root {
     --content-body-horizontal-padding: 0px;
+    --grid-item-num: 5;
   }
 
   .sv-category-carousel {
@@ -118,10 +126,6 @@
     .sv-carousel-thumbnails {
       padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding) - 50px);
     }
-  }
-
-  .sv-content-body {
-    --grid-item-num: 5;
   }
 }
 

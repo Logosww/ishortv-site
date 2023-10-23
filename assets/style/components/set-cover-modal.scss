@@ -1,36 +1,21 @@
-.sv-modal-set-cover {
-  background-color: #fff;
-  padding: 30px;
-  margin: 0 auto;
-  border-radius: 16px;
-  box-shadow: 
-  rgb(0 0 0 / 8%) 0px 6px 16px 0px, 
-  rgb(0 0 0 / 12%) 0px 3px 6px -4px, 
-  rgb(0 0 0 / 5%) 0px 9px 28px 8px;
-  text-align: center;
+@use '../mixin' as *;
 
-  .sv-modal-set-cover__header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+@include modal('set-cover') {
 
-    .sv-modal-set-cover__title {
-      font-size: 20px;
-      font-weight: 900;
-      user-select: none;
-    }
+  @at-root {
+    .sv-modal-set-cover {
+      background-color: #fff;
 
-    .sv-modal-set-cover__action {
-      .v-icon {
-        font-size: 22px;
-        width: 22px;
-        height: 22px;
+      .sv-modal-set-cover__title {
+        color: #000;
+      }
+      
+      .sv-modal-set-cover__footer {
+        display: flex;
+        justify-content: center;
       }
     }
   }
-
 
   .v-window__container {
     width: 800px;
@@ -41,7 +26,7 @@
       margin-bottom: 10px;
     }
 
-    .sv-set-cover-modal__cover-preview {
+    .sv-modal-set-cover__cover-preview {
       left: 50%;
       transform: translateX(-50%);
       margin-bottom: 20px;

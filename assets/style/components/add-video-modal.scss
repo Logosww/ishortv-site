@@ -1,15 +1,7 @@
 @use '../_var' as *;
+@use '../mixin' as *;
 
-.sv-modal-add-video {
-  padding: 20px 30px;
-  // width: 800px;
-  margin: 0 auto;
-  background-color: #595858;
-  border-radius: 16px;
-  box-shadow: 
-  rgb(0 0 0 / 8%) 0px 6px 16px 0px, 
-  rgb(0 0 0 / 12%) 0px 3px 6px -4px, 
-  rgb(0 0 0 / 5%) 0px 9px 28px 8px;
+@include modal('add-video') {
 
   .sv-modal-add-video-row {
     margin: 15px 0 20px 0;
@@ -17,29 +9,6 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-  }
-
-  .sv-modal-add-video__header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    .sv-modal-add-video__title {
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-      user-select: none;
-    }
-
-    .sv-modal-add-video__action {
-      .v-icon {
-        font-size: 22px;
-        width: 22px;
-        height: 22px;
-      }
-    }
   }
 
   input[type=file] {

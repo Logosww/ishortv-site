@@ -1,3 +1,6 @@
+@use './mixin' as *;
+@use './transition' as *;
+
 .sv-content-header {
   display: block;
   font-size: 1.8rem;
@@ -9,8 +12,20 @@
 }
 
 .sv-content-body {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(var(--grid-item-num), 1fr);
   gap: var(--grid-gap);
   min-height: 500px;
+
+  .sv-content-body__mask {
+    @include mask();
+    background-color: #232324;
+    transition: opacity .3s ease;
+  }
+}
+
+.sv-videos-pagination {
+  color: #fff;
+  margin-top: 36px;
 }

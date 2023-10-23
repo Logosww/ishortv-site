@@ -14,21 +14,25 @@
     width: 300px;
   }
 
-  .sv-search-box__input {
-    outline: none;
-    border: none;
-    font-size: 14px;
-    padding: 0 8px;
-    height: 32px;
-    width: 100%;
-    border-radius: 10px;
-    transition: background-color .3s;
-
-    &:focus, &:active {
-      background-color: #dadde0;
-
-      .sv-search-box {
-        opacity: .9;
+  .sv-search-box__inner {
+    display: inline;
+    
+    .sv-search-box__input {
+      outline: none;
+      border: none;
+      font-size: 14px;
+      padding: 0 8px;
+      height: 32px;
+      width: 100%;
+      border-radius: 10px;
+      transition: background-color .3s;
+  
+      &:focus, &:active {
+        background-color: #dadde0;
+  
+        .sv-search-box {
+          opacity: .9;
+        }
       }
     }
   }

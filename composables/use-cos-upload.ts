@@ -2,6 +2,7 @@ import COS from 'cos-js-sdk-v5';
 
 import type { ProgressInfo } from 'cos-js-sdk-v5';
 import { nanoid } from 'nanoid';
+import { COS_CDN_URL } from '~/constants';
 
 const config = {
   bucketName: 'ishortv-1308682615',
@@ -11,7 +12,8 @@ const config = {
 const cos = ref<COS>();
 
 export const useCOSUpload = async (
-  onProgress: (params: ProgressInfo) => void
+  onProgress?: (params: ProgressInfo) => void,
+  returnUrl?: boolean
 ) => {
   const { data: bucketSecret, refresh: getCOSSecret } = await useGetCOSSecret();
 
@@ -19,6 +21,7 @@ export const useCOSUpload = async (
     async getAuthorization(_options, callback) {
       await getCOSSecret();
       const data = bucketSecret.value;
+      if(!data) return;
       const { credentials } = data;
       callback({
         TmpSecretId: credentials.tmpSecretId,
@@ -34,8 +37,9 @@ export const useCOSUpload = async (
   const upload = (file: File, path?: string) => {
     const extension = file.name.split('.').at(-1);
     const generateKey = () => {
+      const imageTypes = ['image/png', 'image/jpeg'];
       const { type } = file;
-      return `${ type === 'image/png' ? 'image' : 'temp' }/${nanoid()}.${extension}`
+      return `${ imageTypes.includes(type) ? 'image' : 'temp' }/${nanoid()}.${extension}`
     };
     return new Promise<string>(async (resolve, reject) => {
       try {
@@ -49,7 +53,7 @@ export const useCOSUpload = async (
             onProgress
           }
         );
-        resolve(key);
+        resolve(returnUrl ? `${COS_CDN_URL}/${key}` : key);
       } catch(err) {
         reject(err)
       }

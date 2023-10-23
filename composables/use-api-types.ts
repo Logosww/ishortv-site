@@ -6,23 +6,33 @@ export interface UserInfo {
   username: string;
   nickname: string;
   email: string;
+  avatar?: string;
+  sex?: string;
+  birthday?: string;
+  signature?: string;
 };
 export interface RegisterInfo extends UserInfo {
   password: string;
 };
 
 export interface VideoInfo {
+  id: number;
   title: string;
   coverUrl: string;
   videoKey: string;
+  duration: string;
+  tags: string[];
 };
-export interface PagingVideoInfo {
+export interface BannerVideoInfo extends VideoInfo {
+  bannerCoverUrl?: string;
+};
+export interface PagingData<T> {
   currentPage: number;
   pageSize: number;
   totalPage: number;
   hasNext: boolean;
   hasPrevious: boolean;
-  items: VideoInfo[]
+  items: T[];
 };
 
 export interface COSBucketSecret {
@@ -45,4 +55,4 @@ export type CategoryType
   | 'all'
   | undefined;
 export type CollectionType = 'product' | 'material' | undefined;
-export type ParamsForVideoFetch = [CollectionType, CategoryType];
+export type ParamsForVideoFetch = [CollectionType, CategoryType?];

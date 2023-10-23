@@ -21,7 +21,15 @@ const props = defineProps<{
  }>();
 const emit = defineEmits(['update:modelValue']);
 
-const modalVisible = computed(() => props.modelValue);
+const modalVisible = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(val) {
+    emit('update:modelValue', val);
+    return val;
+  }
+});
 </script>
 
 <style lang="scss">

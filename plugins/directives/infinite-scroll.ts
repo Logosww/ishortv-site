@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { nextTick } from 'vue';
 import { isFunction } from '@vue/shared';
-import { getScrollContainer } from '@/utils/dom';
+import { getScrollContainer, getOffsetTopDistance } from '@/utils/dom';
 import { throttle } from 'lodash-unified';
 
 import type { ComponentPublicInstance, ObjectDirective } from 'vue';
@@ -117,7 +117,7 @@ const InfiniteScroll: ObjectDirective<
 > = {
   async mounted(el, binding) {
     const { instance, value: cb } = binding;
-    console.log(cb)
+    
     if(!isFunction(cb))
       throw new Error("[MyInfiniteScroll]: 'v-infinite-scroll' binding value must be a function");
     

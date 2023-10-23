@@ -6,8 +6,7 @@ export const useMessage = () => {
   const messageFn = appContext.config.globalProperties['$message'] as MessageFn;
   if(!messageFn) throw new Error('my-message 组件未找到，可能是组件还未注册');
   
-  const injectedMessageFn = (options: MessageOptions) => {
-    return messageFn(options, appContext);
-  }
+  const injectedMessageFn = (options: MessageOptions) => messageFn(options, appContext);
+  
   return injectedMessageFn;
 };

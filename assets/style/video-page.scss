@@ -24,6 +24,21 @@
           font-weight: 700;
         }
       }
+
+      .sv-video-tags {
+        color: #fff;
+        margin-top: 24px;
+
+        .sv-video-tags__label {
+          font-weight: 700;
+          display: inline;
+          margin-right: 16px;
+        }
+
+        .sv-video-tags__item + .sv-video-tags__item {
+          margin-left: 8px;
+        }
+      }
     }
 
     .sv-video-page-container-right {

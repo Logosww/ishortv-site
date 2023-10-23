@@ -1,0 +1,1 @@
+export const TAG_COLOR_LIST = ['grey', 'light-blue', 'blue-accent-2', 'red', 'green', 'purple'];

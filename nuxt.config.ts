@@ -42,7 +42,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@vueuse/nuxt',
-    '@nuxtus/nuxt-localtunnel',
     async (_options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig', config => {
         config.plugins?.push(vuetify());  // Add vuetify plugin
