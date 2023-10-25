@@ -35,7 +35,6 @@ const fetch = <T>(
 ) => {
   // consider to send cookies instead of adding token to the headers
   const originalHeaders = useRequestHeaders(['cookie']);
-
   const customHeaders = originalHeaders 
     ? {
       // proxy bypass cookies from client, only work in server-side call on API
@@ -43,11 +42,11 @@ const fetch = <T>(
       cookie: originalHeaders.cookie ?? ''
     }
     : headers;
-  const event = process.server ? useRequestEvent() : undefined;
   const message = process.server ? undefined : useMessage();
 
   const redirectToLogin = async () => {
     if(process.server) {
+      const event = process.server ? useRequestEvent() : undefined;
       return sendRedirect(event!, '/login', 301);
     }
     else {
@@ -76,7 +75,7 @@ const fetch = <T>(
       },
       onResponseError: ({ response }) => {
         const { status } = response;
-        if(status === 401 || status === 409) 
+        if(status === 401 || status === 409)
           redirectToLogin();
         else if(status === 403) 
           message!({ type: 'danger', message: '你的权限不足' });

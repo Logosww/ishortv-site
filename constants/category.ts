@@ -66,6 +66,10 @@ export const adminCategories = [
 
 export const uploadCategories = [
   {
+    title: '精品推荐',
+    value: 'recommend'
+  },
+  {
     title: '风景',
     value: 'landscape'
   },

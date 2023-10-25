@@ -6,9 +6,9 @@
     :infinite-scroll-distance="500"
     :infinite-scroll-immediate="false"
   >
-    <Navbar :scroll-y="scrollY" :is-video-page="isVideoPage || isSearchPage" :hide-search="isSearchPage" />
-    <Categories v-if="!isAuthorized && !isVideoPage && !isSearchPage" />
-    <main :class="['sv-section-main', isSearchPage && 'search-page']" v-if="!isAuthorized">
+    <Navbar :scroll-y="scrollY" :is-video-page="isVideoPage || isSearchPage" :is-authorized-page="isAuthorizedPage" :hide-search="isSearchPage" />
+    <Categories v-if="!isAuthorizedPage && !isVideoPage && !isSearchPage" />
+    <main :class="['sv-section-main', isSearchPage && 'search-page']" v-if="!isAuthorizedPage">
       <Carousel v-if="!isVideoPage && !isSearchPage" />
       <section
         :class="[
@@ -38,20 +38,18 @@ import {
 
 import type { CategoryType } from '@/composables/use-api-types';
 
-const auth = useAuth();
-const { isAuthorized } = auth.value;
-
 const WrapperRef = ref<HTMLDivElement>();
 const { y: scrollY } = useScroll(WrapperRef);
 
 const route = useRoute();
 const isVideoPage = /^\/video\//.test(route.path);
 const isSearchPage = /^\/search/.test(route.path);
+const isAuthorizedPage = /^\/admin/.test(route.path);
 
 const currentCategory = computed(() => 
   (
     route.params.category
-    ?? (isAuthorized ? undefined : 'recommend')
+    ?? (isAuthorizedPage ? undefined : 'recommend')
   ) as CategoryType
 );
 

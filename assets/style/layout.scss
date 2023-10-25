@@ -118,14 +118,11 @@
   :root {
     --content-body-horizontal-padding: 0px;
     --grid-item-num: 5;
+    --carousel-left-padding: 50px;
   }
 
-  .sv-category-carousel {
-    padding: 0 20px 0 50px;
-
-    .sv-carousel-thumbnails {
-      padding-left: calc(var(--width-logo) + var(--content-body-horizontal-padding) - 50px);
-    }
+  .sv-category-carousel-wrapper {
+    padding: 0 20px 0 var(--carousel-left-padding);
   }
 }
 

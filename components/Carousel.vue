@@ -37,7 +37,7 @@
             <a :href="`/video/${item.videoKey}`" target="_blank">
               <img
                 :aspect-ratio="16 / 9"
-                :src="item.bannerCoverUrl || item.coverUrl"
+                :src="item.coverUrl"
                 @mouseenter="handleThumbMouseEnter(index)"
                 @mouseleave="handleThumbMouseLeave"
               >

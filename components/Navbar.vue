@@ -1,7 +1,7 @@
 <template>
   <header :class="['sv-navbar', scrollY >= 32 ? 'transparent' : '']">
     <div class="sv-navbar-wrapper">
-      <div class="sv-navbar-container" v-if="isVideoPage || !auth.isAuthorized">
+      <div class="sv-navbar-container" v-if="isVideoPage || !isAuthorizedPage">
         <div class="sv-navbar-row">
           <div class="sv-navbar-logo--left" @click="toHomePage"><img :src="`${CDN_URL}/logo.png`" alt="logo"></div>
           <v-btn-toggle v-model="selectedCollection" selected-class="navigation-link active" height="42" mandatory>
@@ -60,13 +60,17 @@ import { CDN_URL, adminCategories as categories } from '@/constants';
 
 import type { CSSProperties } from 'vue';
 
-const props = defineProps<{ scrollY: number; isVideoPage: boolean, hideSearch?: boolean }>();
+const props = defineProps<{ 
+  scrollY: number;
+  isVideoPage?: boolean;
+  isAuthorizedPage?: boolean;
+  hideSearch?: boolean;
+}>();
 
 const addModalVisible = ref(false);
 const bannerModalVisible = ref(false);
 const keyword = ref('');
 
-const auth = useAuth();
 const selectedCollection = useCollection();
 const route = useRoute();
 
@@ -80,9 +84,8 @@ const navUnderlineStyle = computed<CSSProperties>(() => ({
 }))
 
 const toHomePage = async () => {
-  const { isAuthorized } = auth.value;
   await navigateTo(
-    isAuthorized ? '/admin' : '/',
+    props.isAuthorizedPage ? '/admin' : '/',
     { external: props.isVideoPage }
   );
 };

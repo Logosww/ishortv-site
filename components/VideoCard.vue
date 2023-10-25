@@ -11,7 +11,7 @@
     <div :class="['sv-video-card', block ? 'is-block' : '', isLoading && !disableSkeleton && 'is-hidden']">
       <div class="sv-video-card__cover">
         <a :href="`/video/${videoInfo.videoKey}`" target="_blank">
-          <img class="sv-video-card__cover-original" :src="videoInfo.coverUrl" object-fit="cover" @load="handleLoaded" />
+          <img class="sv-video-card__cover-original" :src="videoInfo.coverUrl" @load="handleLoaded" />
         </a>
         <div class="sv-video-card__cover-duration">{{ videoInfo.duration }}</div>
       </div>
