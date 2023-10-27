@@ -5,7 +5,7 @@ import type {
   UseFetchOptions as _UseFetchOptions
 } from 'nuxt/dist/app/composables';
 import type { MaybeRef } from '@vueuse/core';
-import type { SearchParameters } from 'ofetch';
+import type { SearchParameters, FetchOptions, FetchResponse } from 'ofetch';
 
 interface ResOptions<T> {
   data: T;
@@ -20,7 +20,41 @@ type RequestMethodType =
   "get" | "head" | "patch" | "post" | "put" | "delete" | "connect" | "options" | "trace";
 export type WatchOption = OtherUseFetchOptions<unknown>['watch'];
 
+let message: ReturnType<typeof useMessage> | undefined;
+
 const baseURL = 'https://api.ishortv.top/ishortv';
+
+const interceptors: Pick<FetchOptions<'json'>, 'onResponse' | 'onResponseError'> = {
+  onResponse: ({ response }) => {
+    const { _data, ok } = response as FetchResponse<ResOptions<unknown>>;
+    if(!ok) return;
+    
+    const { code, msg } = _data!;
+    if(code !== 1) {
+      message?.({ type: 'danger', message: msg });
+      return Promise.reject(msg);
+    }
+  },
+  onResponseError: ({ response }) => {
+    const { status } = response;
+    if(status === 401 || status === 409) {
+      message?.({ type: 'danger', message: '登录信息过期，请重新登录' });
+      redirectToLogin();
+    } else if(status === 403) 
+      message!({ type: 'danger', message: '你的权限不足' });
+    else message?.({ type: 'danger', message: '网络异常' });
+
+    return Promise.reject(response.statusText);
+  },
+}
+
+const redirectToLogin = async () => {
+  if(process.server) {
+    const event = useRequestEvent();
+    return sendRedirect(event!, '/login', 301);
+  }
+  else await navigateTo('/login', { redirectCode: 302 });
+};
 
 /**
  * 封装 useFetch
@@ -42,18 +76,8 @@ const fetch = <T>(
       cookie: originalHeaders.cookie ?? ''
     }
     : headers;
-  const message = process.server ? undefined : useMessage();
-
-  const redirectToLogin = async () => {
-    if(process.server) {
-      const event = process.server ? useRequestEvent() : undefined;
-      return sendRedirect(event!, '/login', 301);
-    }
-    else {
-      message!({ type: 'danger', message: '登录信息过期，请重新登录' });
-      await navigateTo('/login', { redirectCode: 302 });
-    }
-  };
+  
+  message = process.server ? undefined : useMessage();
 
   return useFetch(
     url,
@@ -63,26 +87,7 @@ const fetch = <T>(
       baseURL,
       deep: false,
       transform: (res: ResOptions<T>) => res ? res.data : null,
-      onResponse: ({ response }) => {
-        const { _data, ok } = response;
-        if(!ok) return;
-        
-        const { code, msg } = _data as ResOptions<unknown>;
-        if(code !== 1) {
-          message?.({ type: 'danger', message: msg });
-          return Promise.reject(msg);
-        }
-      },
-      onResponseError: ({ response }) => {
-        const { status } = response;
-        if(status === 401 || status === 409)
-          redirectToLogin();
-        else if(status === 403) 
-          message!({ type: 'danger', message: '你的权限不足' });
-        else message?.({ type: 'danger', message: '网络异常' });
-
-        return Promise.reject();
-      },
+      ...interceptors,
       ...options
     }
   );
@@ -98,38 +103,17 @@ export const nativeFetch = async <T>(
   const resolvedParams = method === 'get'
     ? { query: params as SearchParameters }
     : { body: params as PostRequestBody };
-  const message = useMessage();
+  
+  message = useMessage();
 
-  return new Promise<T>((resolve, reject) => {
-    $fetch<ResOptions<T>>(url, {
-      method,
-      baseURL,
-      credentials: 'include',
-      ...resolvedParams,
-      headers
-    }).then(_data => {
-      const data = _data;
-      if(data.code !== 1) {
-        message?.({ type: 'danger', message: data.msg });
-        return reject(data.msg);
-      }
-      return resolve(data.data);
-    }).catch(err => {
-      if(!err.data) {
-        message?.({ type: 'danger', message: '网络异常' });
-        return reject(err.data);
-      }
-      const { status } = err.data as Response;
-      if(status === 401 || status === 409) {
-        message?.({ type: 'danger', message: '登录信息过期，请重新登录' });
-        navigateTo('/login', { redirectCode: 302 });
-      } else if (status === 403)
-        message?.({ type: 'danger', message: '你的权限不足' });
-      else message?.({ type: 'danger', message: '网络异常' });
-      
-      return reject(err.data);
-    })
-  });
+  return $fetch<ResOptions<T>>(url, {
+    method,
+    baseURL,
+    credentials: 'include',
+    ...resolvedParams,
+    ...interceptors,
+    headers
+  }).then(({ data }) => data);
 };
 
 export const get = <T>(
