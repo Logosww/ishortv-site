@@ -49,9 +49,6 @@ const form = reactive<FormData>({
 const message = useMessage();
 
 const handleLogin = async () => {
-  //validation
-
-
   await useLogin(form);
 
   const auth = useAuth();

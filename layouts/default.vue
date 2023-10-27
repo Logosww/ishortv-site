@@ -35,6 +35,7 @@ import {
   categoryKey,
   eventBusContextKey 
 } from '@/tokens';
+import { useRoute } from '#vue-router';
 
 import type { CategoryType } from '@/composables/use-api-types';
 
