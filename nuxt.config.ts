@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/login': { prerender: true },
     '/register': { prerender: true },
+    '/video/**': { isr: true },
   },
   modules: [
     '@vueuse/nuxt',
