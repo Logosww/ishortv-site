@@ -25,7 +25,6 @@
 </template>
 
 <script setup lang="ts">
-import { VSkeletonLoader } from 'vuetify/lib/labs/VSkeletonLoader/index.mjs';
 
 defineProps<{ 
   videoInfo: VideoInfo;

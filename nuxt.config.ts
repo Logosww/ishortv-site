@@ -7,27 +7,14 @@ export default defineNuxtConfig({
       viewport: '',
     }
   },
-
   css: [
     'vuetify/styles'
   ],
-
   plugins: [
     '@/plugins/directives/index.ts',
     '@/plugins/my-message/index.ts'
   ],
-
   vite: {
-    // server: {
-    //   proxy: {
-    //     '/proxyAPI': {
-    //       target: 'https://api.ishortv.top',
-    //       changeOrigin: true,
-    //       cookieDomainRewrite: '',
-    //       rewrite: (path) => path.replace(/^\/proxyAPI/, '/ishortv')
-    //     }
-    //   }
-    // },
     css: {
       preprocessorOptions: {
         scss: {
@@ -39,7 +26,10 @@ export default defineNuxtConfig({
       noExternal: ['vuetify']
     }
   },
-
+  routeRules: {
+    '/login': { prerender: true },
+    '/register': { prerender: true },
+  },
   modules: [
     '@vueuse/nuxt',
     async (_options, nuxt) => {
@@ -48,12 +38,7 @@ export default defineNuxtConfig({
       })
     }
   ],
-
   typescript: {
     shim: false
   },
-
-  devtools: {
-    enabled: true
-  }
 })
